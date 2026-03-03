@@ -3,55 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <title>StyleShop</title>
+
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
     <h1>StyleShop</h1>
+
+    <div class="header-extra">
+      🛒
+      <span class="cart-count">3</span>
+    </div>
   </header>
 
   <main>
-    
+
     <aside>
       <h2>Estilos</h2>
     </aside>
 
     <section class="productos">
 
-  <div class="producto">
-    <div>
-      <strong>👕 Camisetas</strong>
-      <p class="descripcion">Manga corta y manga larga</p>
-    </div>
-    <span class="stock">Stock</span>
-  </div>
+      <!-- BUSCADOR -->
+      <div class="buscador">
+        🔎
+        <input type="text" placeholder="Buscar productos...">
+      </div>
 
-  <div class="producto">
-    <div>
-      <strong>🧥 Sudaderas</strong>
-      <p class="descripcion">Con y sin cierre</p>
-    </div>
-    <span class="stock">Stock</span>
-  </div>
+      <!-- CAMISETAS -->
+      <div class="producto">
+        <strong>👕 Camisetas</strong>
 
-  <div class="producto">
-    <div>
-      <strong>👖 Pantalones</strong>
-      <p class="descripcion">Cortos y largos</p>
-    </div>
-    <span class="stock">Stock</span>
-  </div>
+        <details class="dropdown">
+          <summary>Ver</summary>
+          <ul>
+            <li>Manga corta</li>
+            <li>Manga larga</li>
+          </ul>
+        </details>
 
-  <div class="producto">
-    <div>
-      <strong>👟 Zapatillas</strong>
-      <p class="descripcion">Elegantes y deportivas</p>
-    </div>
-    <span class="stock">Stock</span>
-  </div>
+        <span class="stock">Stock</span>
+      </div>
 
-</section>
+      <!-- SUDADERAS -->
+      <div class="producto">
+        <strong>🧥 Sudaderas</strong>
+
+        <details class="dropdown">
+          <summary>Ver</summary>
+          <ul>
+            <li>Con cierre</li>
+            <li>Sin cierre</li>
+          </ul>
+        </details>
+
+        <span class="stock">Stock</span>
+      </div>
+
+      <!-- PANTALONES -->
+      <div class="producto">
+        <strong>👖 Pantalones</strong>
+
+        <details class="dropdown">
+          <summary>Ver</summary>
+          <ul>
+            <li>Cortos</li>
+            <li>Largos</li>
+          </ul>
+        </details>
+
+        <span class="stock">Stock</span>
+      </div>
+
+      <!-- ZAPATILLAS -->
+      <div class="producto">
+        <strong>👟 Zapatillas</strong>
+
+        <details class="dropdown">
+          <summary>Ver</summary>
+          <ul>
+            <li>Elegantes</li>
+            <li>Deportivas</li>
+          </ul>
+        </details>
+
+        <span class="stock">Stock</span>
+      </div>
+
+    </section>
 
   </main>
 
