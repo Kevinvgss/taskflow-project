@@ -1,0 +1,207 @@
+/* VARIABLES */
+:root {
+  --marron-oscuro: #8B5E3C;
+  --marron-claro: #d2b48c;
+  --beige: #f5efe6;
+}
+
+/* GENERAL */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--beige);
+}
+
+/* HEADER */
+header {
+  background-color: var(--marron-oscuro);
+  padding: 25px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+header h1 {
+  margin: 0;
+  color: white;
+  font-size: 36px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+}
+
+/* CARRITO */
+.header-extra {
+  position: absolute;
+  right: 40px;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.header-extra:hover {
+  transform: scale(1.15);
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-extra:hover .cart-count {
+  background-color: #ffcc00;
+  color: black;
+}
+
+/* LAYOUT */
+main {
+  display: flex;
+  padding: 40px;
+  gap: 60px;
+}
+
+/* ASIDE */
+aside {
+  width: 220px;
+}
+
+aside h2 {
+  background-color: var(--marron-oscuro);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+aside h2:hover {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* PRODUCTOS */
+.productos {
+  flex: 1;
+  max-width: 800px;
+  margin-left: 40px;
+}
+
+/* BUSCADOR */
+.buscador {
+  display: flex;
+  align-items: center;
+  background-color: var(--marron-oscuro);
+  padding: 12px 18px;
+  border-radius: 30px;
+  margin-bottom: 40px;
+  width: 350px;
+}
+
+.buscador input {
+  border: none;
+  background: transparent;
+  color: white;
+  margin-left: 10px;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+}
+
+.buscador input::placeholder {
+  color: #f5efe6;
+}
+
+/* TARJETAS */
+.producto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  background-color: white;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: visible;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.producto strong {
+  font-size: 20px;
+}
+
+/* STOCK */
+.stock {
+  color: var(--marron-oscuro);
+  font-weight: bold;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropdown summary {
+  background-color: var(--marron-claro);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+}
+
+.dropdown summary:hover {
+  background-color: #b8966f;
+}
+
+.dropdown ul {
+  position: absolute;
+  top: 50%;
+  left: 110%;
+  transform: translateY(-50%);
+  background-color: #fff8f0;
+  padding: 10px;
+  border-radius: 10px;
+  list-style: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  width: 160px;
+  z-index: 999;
+}
+.dropdown li {
+  padding: 6px 0;
+  color: var(--marron-oscuro);
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+
+  aside {
+    width: 100%;
+  }
+
+  .productos {
+    margin-left: 0;
+  }
+}
