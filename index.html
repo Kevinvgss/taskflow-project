@@ -1,102 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>StyleShop</title>
 
-  <!-- Fuente moderna -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>TaskFlow</title>
 
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 
-  <header>
-    <h1>StyleShop</h1>
+<header>
 
-    <div class="header-extra">
-      🛒
-      <span class="cart-count">3</span>
-    </div>
-  </header>
+<div class="header-left">
+<h1>TaskFlow</h1>
+<p>Planificador diario</p>
+</div>
 
-  <main>
+<div class="header-right">
+<span id="date"></span>
+</div>
 
-    <aside>
-      <h2>Estilos</h2>
-    </aside>
+</header>
 
-    <section class="productos">
+<main>
 
-      <!-- BUSCADOR -->
-      <div class="buscador">
-        🔎
-        <input type="text" placeholder="Buscar productos...">
-      </div>
+<!-- SIDEBAR -->
 
-      <!-- CAMISETAS -->
-      <div class="producto">
-        <strong>👕 Camisetas</strong>
+<aside class="sidebar">
 
-        <details class="dropdown">
-          <summary>Ver</summary>
-          <ul>
-            <li>Manga corta</li>
-            <li>Manga larga</li>
-          </ul>
-        </details>
+<h3>TaskFlow</h3>
 
-        <span class="stock">Stock</span>
-      </div>
+<ul>
 
-      <!-- SUDADERAS -->
-      <div class="producto">
-        <strong>🧥 Sudaderas</strong>
+<li id="menu-dashboard" class="active">🏠 Dashboard</li>
+<li id="menu-hoy">📅 Hoy</li>
+<li id="menu-tareas">📝 Tareas</li>
+<li id="menu-ajustes">⚙ Ajustes</li>
 
-        <details class="dropdown">
-          <summary>Ver</summary>
-          <ul>
-            <li>Con cierre</li>
-            <li>Sin cierre</li>
-          </ul>
-        </details>
+</ul>
 
-        <span class="stock">Stock</span>
-      </div>
+<div class="task-counter">
+<span id="task-count">0</span> tareas
+</div>
 
-      <!-- PANTALONES -->
-      <div class="producto">
-        <strong>👖 Pantalones</strong>
+</aside>
 
-        <details class="dropdown">
-          <summary>Ver</summary>
-          <ul>
-            <li>Cortos</li>
-            <li>Largos</li>
-          </ul>
-        </details>
+<!-- CONTENIDO -->
 
-        <span class="stock">Stock</span>
-      </div>
+<section class="app-container">
 
-      <!-- ZAPATILLAS -->
-      <div class="producto">
-        <strong>👟 Zapatillas</strong>
+<!-- DASHBOARD -->
 
-        <details class="dropdown">
-          <summary>Ver</summary>
-          <ul>
-            <li>Elegantes</li>
-            <li>Deportivas</li>
-          </ul>
-        </details>
+<div id="dashboard-section" class="section">
 
-        <span class="stock">Stock</span>
-      </div>
+<h2>Dashboard</h2>
 
-    </section>
+<div class="stats">
 
-  </main>
+<div class="stat-box">
+<h3 id="totalTasks">0</h3>
+<p>Tareas totales</p>
+</div>
+
+<div class="stat-box">
+<h3 id="completedTasks">0</h3>
+<p>Completadas</p>
+</div>
+
+<div class="stat-box">
+<h3 id="pendingTasks">0</h3>
+<p>Pendientes</p>
+</div>
+
+</div>
+
+<div class="progress-container">
+
+<p>Progreso del día</p>
+
+<div class="progress-bar">
+<div id="progress-fill"></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- HOY -->
+
+<div id="today-section" class="section" style="display:none">
+
+<h2>Tareas de hoy</h2>
+<ul id="today-list"></ul>
+
+</div>
+
+<!-- TAREAS -->
+
+<div id="tasks-section" class="section" style="display:none">
+
+<h2>Mis tareas</h2>
+
+<form id="task-form">
+
+<input type="text" id="task-input" placeholder="Escribe una nueva tarea..." required>
+
+<input type="time" id="task-time">
+
+<button type="submit">Añadir</button>
+
+</form>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="🔎 Buscar tarea...">
+</div>
+
+<ul id="task-list"></ul>
+
+<p id="empty-message">No tienes tareas 🎉</p>
+
+</div>
+
+<!-- AJUSTES -->
+
+<div id="settings-section" class="section" style="display:none">
+
+<h2>Ajustes</h2>
+
+<div class="settings-group">
+<h3>Modo oscuro</h3>
+<label class="switch">
+<input type="checkbox" id="darkModeToggle">
+<span class="slider"></span>
+</label>
+</div>
+
+<div class="settings-group">
+<h3>Color principal</h3>
+
+<select id="colorTheme">
+
+<option value="#2c4fa3">Azul</option>
+<option value="#8b5cf6">Morado</option>
+<option value="#10b981">Verde</option>
+<option value="#ef4444">Rojo</option>
+
+</select>
+
+</div>
+
+<div class="settings-group">
+<button id="clearTasks">Borrar todas las tareas</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- CALENDARIO -->
+
+<div class="calendar-container">
+
+<h3 id="calendar-title"></h3>
+
+<div id="calendar"></div>
+
+</div>
+
+</main>
+
+<script src="app.js"></script>
 
 </body>
 </html>
