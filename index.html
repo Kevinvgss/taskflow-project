@@ -4,11 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
-<title>TaskFlow</title>
+<title>TaskNova Planner</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
 
@@ -16,68 +16,82 @@
 
 <header>
 
-<div class="header-left">
-<h1>TaskFlow</h1>
-<p>Planificador diario</p>
-</div>
+<div class="logo">🚀 TaskNova Planner</div>
 
-<div class="header-right">
-<span id="date"></span>
-</div>
+<div id="today-date"></div>
 
 </header>
 
+
 <main>
+
 
 <!-- SIDEBAR -->
 
 <aside class="sidebar">
 
-<h3>TaskFlow</h3>
+<h3>Panel</h3>
 
-<ul>
+<button class="menu active" data-filter="all">📋 Todas</button>
+<button class="menu" data-filter="personal">👤 Personal</button>
+<button class="menu" data-filter="trabajo">💼 Trabajo</button>
+<button class="menu" data-filter="hogar">🏠 Hogar</button>
+<button class="menu" data-filter="salud">💪 Salud</button>
 
-<li id="menu-dashboard" class="active">🏠 Dashboard</li>
-<li id="menu-hoy">📅 Hoy</li>
-<li id="menu-tareas">📝 Tareas</li>
-<li id="menu-ajustes">⚙ Ajustes</li>
 
-</ul>
+<div class="calendar-card">
 
-<div class="task-counter">
-<span id="task-count">0</span> tareas
+<h4>Calendario</h4>
+
+<div id="calendar-header"></div>
+
+<div class="calendar-days">
+<span>L</span>
+<span>M</span>
+<span>X</span>
+<span>J</span>
+<span>V</span>
+<span>S</span>
+<span>D</span>
 </div>
+
+<div id="calendar"></div>
+
+</div>
+
+
+<button id="clear-all" class="clear-btn">
+🗑 Eliminar todas las tareas
+</button>
+
 
 </aside>
 
-<!-- CONTENIDO -->
 
-<section class="app-container">
 
-<!-- DASHBOARD -->
+<!-- CONTENIDO CENTRAL -->
 
-<div id="dashboard-section" class="section">
-
-<h2>Dashboard</h2>
+<section class="main">
 
 <div class="stats">
 
-<div class="stat-box">
-<h3 id="totalTasks">0</h3>
-<p>Tareas totales</p>
+<div class="stat">
+<p>Total tareas</p>
+<span id="total-count">0</span>
 </div>
 
-<div class="stat-box">
-<h3 id="completedTasks">0</h3>
+<div class="stat">
 <p>Completadas</p>
+<span id="completed-count">0</span>
 </div>
 
-<div class="stat-box">
-<h3 id="pendingTasks">0</h3>
+<div class="stat">
 <p>Pendientes</p>
+<span id="pending-count">0</span>
 </div>
 
 </div>
+
 
 <div class="progress-container">
 
@@ -87,90 +101,79 @@
 <div id="progress-fill"></div>
 </div>
 
-</div>
+<span id="progress-text">0%</span>
 
 </div>
 
-<!-- HOY -->
 
-<div id="today-section" class="section" style="display:none">
 
-<h2>Tareas de hoy</h2>
-<ul id="today-list"></ul>
+<div class="creator">
 
-</div>
+<input id="task-input" placeholder="Escribe una tarea...">
 
-<!-- TAREAS -->
+<select id="task-category">
 
-<div id="tasks-section" class="section" style="display:none">
-
-<h2>Mis tareas</h2>
-
-<form id="task-form">
-
-<input type="text" id="task-input" placeholder="Escribe una nueva tarea..." required>
-
-<input type="time" id="task-time">
-
-<button type="submit">Añadir</button>
-
-</form>
-
-<div class="search-box">
-<input type="text" id="search" placeholder="🔎 Buscar tarea...">
-</div>
-
-<ul id="task-list"></ul>
-
-<p id="empty-message">No tienes tareas 🎉</p>
-
-</div>
-
-<!-- AJUSTES -->
-
-<div id="settings-section" class="section" style="display:none">
-
-<h2>Ajustes</h2>
-
-<div class="settings-group">
-<h3>Modo oscuro</h3>
-<label class="switch">
-<input type="checkbox" id="darkModeToggle">
-<span class="slider"></span>
-</label>
-</div>
-
-<div class="settings-group">
-<h3>Color principal</h3>
-
-<select id="colorTheme">
-
-<option value="#2c4fa3">Azul</option>
-<option value="#8b5cf6">Morado</option>
-<option value="#10b981">Verde</option>
-<option value="#ef4444">Rojo</option>
+<option value="personal">👤 Personal</option>
+<option value="trabajo">💼 Trabajo</option>
+<option value="hogar">🏠 Hogar</option>
+<option value="salud">💪 Salud</option>
 
 </select>
 
+<select id="task-priority">
+
+<option value="alta">Alta prioridad</option>
+<option value="media">Media prioridad</option>
+<option value="baja">Baja prioridad</option>
+
+</select>
+
+<input type="time" id="task-time">
+
+<textarea id="task-notes" placeholder="Notas..."></textarea>
+
+<button id="add-task">Añadir tarea</button>
+
 </div>
 
-<div class="settings-group">
-<button id="clearTasks">Borrar todas las tareas</button>
-</div>
+
+
+<div class="search-box">
+
+<input id="search-task" placeholder="🔎 Buscar tarea...">
 
 </div>
+
+
+
+<h2>Mis tareas</h2>
+
+<div id="task-list"></div>
+
+<p id="empty-message">📭 No tienes tareas todavía. ¡Añade una para empezar!</p>
 
 </section>
 
-<!-- CALENDARIO -->
 
-<div class="calendar-container">
 
-<h3 id="calendar-title"></h3>
+<!-- PANEL DERECHO -->
 
-<div id="calendar"></div>
+<aside class="right-panel">
+
+<h3>Recordatorios</h3>
+
+<div class="reminder-creator">
+
+<input id="reminder-input" placeholder="Nuevo recordatorio...">
+
+<button id="add-reminder">Añadir</button>
 
 </div>
+
+<div id="reminder-list"></div>
+
+</aside>
+
 
 </main>
 

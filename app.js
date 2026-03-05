@@ -1,348 +1,337 @@
-const form=document.getElementById("task-form")
+let tasks = JSON.parse(localStorage.getItem("tasks")) || []
+let reminders = JSON.parse(localStorage.getItem("reminders")) || []
+
+let filter="all"
+
+const list=document.getElementById("task-list")
+
 const input=document.getElementById("task-input")
-const timeInput=document.getElementById("task-time")
-const taskList=document.getElementById("task-list")
-const taskCount=document.getElementById("task-count")
-const searchInput=document.getElementById("search")
+const category=document.getElementById("task-category")
+const priority=document.getElementById("task-priority")
+const time=document.getElementById("task-time")
+const notes=document.getElementById("task-notes")
 
-let tasks=JSON.parse(localStorage.getItem("tasks")) || []
+const search=document.getElementById("search-task")
 
-/* CREAR TAREA */
+document.getElementById("add-task").onclick=()=>{
 
-form.addEventListener("submit",function(e){
-
-e.preventDefault()
-
-const text=input.value.trim()
-const time=timeInput.value
-
-if(text==="") return
+if(!input.value.trim()) return
 
 tasks.push({
 
-text:text,
-time:time,
-date:new Date().toISOString().split("T")[0],
+text:input.value,
+category:category.value,
+priority:priority.value,
+time:time.value,
+notes:notes.value,
 completed:false
 
 })
 
-saveTasks()
-renderTasks()
-
 input.value=""
-timeInput.value=""
+notes.value=""
 
-})
+save()
+render()
 
-/* RENDER */
-
-function renderTasks(){
-
-taskList.innerHTML=""
-
-tasks.forEach(function(task,index){
-
-const li=document.createElement("li")
-
-if(task.completed){
-li.classList.add("completed")
 }
 
-li.innerHTML=`
-<div>
-📌 ${task.text}
-<span>${task.time || ""}</span>
+function render(){
+
+list.innerHTML=""
+
+let filtered=tasks
+
+if(filter!=="all"){
+filtered=tasks.filter(t=>t.category===filter)
+}
+
+if(search.value){
+filtered=filtered.filter(t=>
+t.text.toLowerCase().includes(search.value.toLowerCase())
+)
+}
+
+filtered.forEach((task,i)=>{
+
+const div=document.createElement("div")
+
+div.className="task "+task.category
+
+div.innerHTML=`
+
+<h4>${task.text}</h4>
+
+<div class="task-tags">
+
+<span class="tag priority-${task.priority}">${task.priority}</span>
+<span class="tag">${task.category}</span>
+
+${task.time ? `<span class="tag">${task.time}</span>`:""}
+
 </div>
 
-<button class="delete-btn" data-index="${index}">
-✖
-</button>
+${task.notes ? `<p>${task.notes}</p>`:""}
+
+<div class="task-actions">
+
+<div class="check ${task.completed?"done":""}" onclick="toggle(${i})">✓</div>
+
+<button class="edit" onclick="editTask(${i})">Editar</button>
+
+<button class="delete" onclick="deleteTask(${i})">Eliminar</button>
+
+</div>
+
 `
 
-li.addEventListener("click",function(){
-
-tasks[index].completed=!tasks[index].completed
-
-saveTasks()
-renderTasks()
+list.appendChild(div)
 
 })
 
-taskList.appendChild(li)
+updateStats()
 
-})
+const emptyMessage = document.getElementById("empty-message")
 
-taskCount.textContent=tasks.length
+if(tasks.length === 0){
 
-updateDashboard()
-renderTodayTasks()
+emptyMessage.style.display = "block"
 
-document.getElementById("empty-message").style.display=
+}else{
 
-tasks.length===0 ? "block" : "none"
-
-}
-
-/* BORRAR */
-
-taskList.addEventListener("click",function(e){
-
-if(e.target.classList.contains("delete-btn")){
-
-const index=e.target.dataset.index
-
-tasks.splice(index,1)
-
-saveTasks()
-renderTasks()
+emptyMessage.style.display = "none"
 
 }
 
-})
+}
 
-/* GUARDAR */
+function toggle(i){
 
-function saveTasks(){
+tasks[i].completed=!tasks[i].completed
 
-localStorage.setItem("tasks",JSON.stringify(tasks))
+save()
+render()
 
 }
 
-/* DASHBOARD */
+function deleteTask(i){
 
-function updateDashboard(){
+const taskElements = document.querySelectorAll(".task")
+const el = taskElements[i]
+
+el.classList.add("removing")
+
+setTimeout(()=>{
+
+tasks.splice(i,1)
+
+save()
+render()
+
+},250)
+
+}
+
+function editTask(i){
+
+const t=prompt("Editar tarea",tasks[i].text)
+
+if(t){
+tasks[i].text=t
+save()
+render()
+}
+
+}
+
+function updateStats(){
 
 const total=tasks.length
 const completed=tasks.filter(t=>t.completed).length
-const pending=total-completed
 
-document.getElementById("totalTasks").textContent=total
-document.getElementById("completedTasks").textContent=completed
-document.getElementById("pendingTasks").textContent=pending
+document.getElementById("total-count").textContent=total
+document.getElementById("completed-count").textContent=completed
+document.getElementById("pending-count").textContent=total-completed
 
-document.getElementById("progress-fill").style.width=
+let percent=0
 
-total===0 ? "0%" : (completed/total)*100+"%"
+if(total>0){
+percent=Math.round((completed/total)*100)
+}
+
+document.getElementById("progress-fill").style.width=percent+"%"
+document.getElementById("progress-text").textContent=percent+"%"
 
 }
 
-/* HOY */
+document.querySelectorAll(".menu").forEach(btn=>{
 
-function renderTodayTasks(){
+btn.onclick=()=>{
 
-const todayList=document.getElementById("today-list")
+document.querySelectorAll(".menu")
+.forEach(b=>b.classList.remove("active"))
 
-todayList.innerHTML=""
+btn.classList.add("active")
 
-tasks.forEach(task=>{
+filter=btn.dataset.filter
 
-const li=document.createElement("li")
+render()
 
-li.innerHTML=`
+}
 
-<div>
+})
 
-<span class="today-icon">📌</span>
+search.oninput=render
 
-${task.text}
+document.getElementById("clear-all").onclick=()=>{
 
-</div>
+if(confirm("¿Eliminar todas las tareas?")){
 
-${task.time ? `<span class="today-time">${task.time}</span>` : ""}
+tasks=[]
+save()
+render()
+
+}
+
+}
+
+/* RECORDATORIOS */
+
+document.getElementById("add-reminder").onclick=()=>{
+
+const input=document.getElementById("reminder-input")
+
+if(!input.value.trim()) return
+
+reminders.push(input.value)
+
+input.value=""
+
+save()
+renderReminders()
+
+}
+
+function renderReminders(){
+
+const container=document.getElementById("reminder-list")
+
+container.innerHTML=""
+
+reminders.forEach((r,i)=>{
+
+const div=document.createElement("div")
+
+div.className="reminder"
+
+div.innerHTML=`
+
+<span>${r}</span>
+
+<button onclick="removeReminder(${i})">×</button>
 
 `
 
-todayList.appendChild(li)
+container.appendChild(div)
 
 })
 
 }
 
-/* BUSCADOR */
+function removeReminder(i){
 
-searchInput.addEventListener("input",function(){
+const reminderElements = document.querySelectorAll(".reminder")
+const el = reminderElements[i]
 
-const text=searchInput.value.toLowerCase()
+el.classList.add("removing")
 
-document.querySelectorAll("#task-list li").forEach(task=>{
+setTimeout(()=>{
 
-task.style.display=
+reminders.splice(i,1)
 
-task.textContent.toLowerCase().includes(text)
+save()
+renderReminders()
 
-? "flex" : "none"
-
-})
-
-})
-
-/* MENU */
-
-const sections=document.querySelectorAll(".section")
-
-function showSection(id){
-
-sections.forEach(sec=>sec.style.display="none")
-
-document.getElementById(id).style.display="block"
+},200)
 
 }
 
-/* BOTONES MENU */
+function save(){
 
-function activateMenu(element){
-
-document.querySelectorAll(".sidebar li").forEach(item=>{
-item.classList.remove("active")
-})
-
-element.classList.add("active")
+localStorage.setItem("tasks",JSON.stringify(tasks))
+localStorage.setItem("reminders",JSON.stringify(reminders))
 
 }
-
-document.getElementById("menu-dashboard").onclick=function(){
-
-showSection("dashboard-section")
-activateMenu(this)
-
-}
-
-document.getElementById("menu-hoy").onclick=function(){
-
-showSection("today-section")
-activateMenu(this)
-
-}
-
-document.getElementById("menu-tareas").onclick=function(){
-
-showSection("tasks-section")
-activateMenu(this)
-
-}
-
-document.getElementById("menu-ajustes").onclick=function(){
-
-showSection("settings-section")
-activateMenu(this)
-
-}
-
-/* MODO OSCURO */
-
-const darkToggle=document.getElementById("darkModeToggle")
-
-darkToggle.checked=localStorage.getItem("darkMode")==="true"
-
-if(darkToggle.checked){
-document.body.classList.add("dark")
-}
-
-darkToggle.addEventListener("change",function(){
-
-document.body.classList.toggle("dark")
-
-localStorage.setItem("darkMode",darkToggle.checked)
-
-})
-
-/* COLOR */
-
-document.getElementById("colorTheme").addEventListener("change",function(e){
-
-document.querySelector("header").style.background=e.target.value
-
-})
-
-/* BORRAR TODO */
-
-document.getElementById("clearTasks").onclick=function(){
-
-if(confirm("¿Seguro que quieres borrar todas las tareas?")){
-
-tasks=[]
-saveTasks()
-renderTasks()
-
-}
-
-}
-
-/* FECHA */
-
-document.getElementById("date").textContent=
-
-new Date().toLocaleDateString("es-ES",{
-
-weekday:"long",
-day:"numeric",
-month:"long"
-
-})
-
-renderTasks()
 
 /* CALENDARIO */
 
-function generateCalendar(){
+const calendar = document.getElementById("calendar")
+const header = document.getElementById("calendar-header")
 
-const calendar=document.getElementById("calendar")
-const title=document.getElementById("calendar-title")
+const today = new Date()
 
-const today=new Date()
-
-const currentMonth=today.getMonth()
-const currentYear=today.getFullYear()
-
-const months=[
+const months = [
 "Enero","Febrero","Marzo","Abril","Mayo","Junio",
 "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
 ]
 
-title.textContent=months[currentMonth]+" "+currentYear
+const year = today.getFullYear()
+const month = today.getMonth()
 
-const firstDay=new Date(currentYear,currentMonth,1).getDay()
-const daysInMonth=new Date(currentYear,currentMonth+1,0).getDate()
+header.textContent = months[month] + " " + year
 
-calendar.innerHTML=""
+calendar.innerHTML = ""
 
-const weekDays=["L","M","X","J","V","S","D"]
+/* primer dia del mes */
 
-weekDays.forEach(function(day){
+let firstDay = new Date(year, month, 1).getDay()
 
-const dayLabel=document.createElement("div")
+if(firstDay === 0){
+firstDay = 7
+}
 
-dayLabel.textContent=day
-dayLabel.style.fontWeight="600"
+/* dias del mes */
 
-calendar.appendChild(dayLabel)
+const daysInMonth = new Date(year, month + 1, 0).getDate()
 
-})
+/* espacios vacíos */
 
-for(let i=0;i<firstDay-1;i++){
+for(let i = 1; i < firstDay; i++){
 
-const empty=document.createElement("div")
+const empty = document.createElement("div")
 calendar.appendChild(empty)
 
 }
 
-for(let day=1;day<=daysInMonth;day++){
+/* dias */
 
-const dayElement=document.createElement("div")
+for(let i = 1; i <= daysInMonth; i++){
 
-dayElement.classList.add("day")
+const day = document.createElement("div")
 
-dayElement.textContent=day
+day.textContent = i
 
-if(day===today.getDate()){
-dayElement.classList.add("today")
+if(
+i === today.getDate() &&
+month === today.getMonth() &&
+year === today.getFullYear()
+){
+day.classList.add("today")
 }
 
-calendar.appendChild(dayElement)
+calendar.appendChild(day)
 
 }
 
-}
+/* FECHA HEADER */
 
-generateCalendar()
+document.getElementById("today-date").textContent=
+
+new Date().toLocaleDateString("es-ES",{
+weekday:"long",
+day:"numeric",
+month:"long"
+})
+
+render()
+renderReminders()

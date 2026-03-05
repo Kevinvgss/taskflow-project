@@ -1,21 +1,21 @@
-TaskFlow
+# TaskNova Planner
 
-Es una aplicación web de planificación diaria desarrollada con HTML, CSS y JavaScript.
+Aplicación web para gestionar y planificar tus tareas diarias y recordatorios.
 
- Funcionalidades:
-
-- Añadir tareas
+Funciones:
+- Crear tareas de tu día a día
+- Editar tareas una vez creadas
 - Eliminar tareas
-- Marcar tareas completadas
+- Prioridades, ya sean altas, medias o bajas
+- Categorías para organizarte mejor
+- Recordatorios 
 - Buscador de tareas
-- Dashboard con estadísticas de cada tarea
-- Calendario 
-- Modo oscuro
-- Ajustes personalizables
-- Persistencia con LocalStorage
+- Calendario a la vista
+- Barra de progreso con porcentaje real 
 
-Tecnologías
-
-- HTML5
+Tecnologías utilizadas:
+- HTML
 - CSS
 - JavaScript
+- LocalStorage
+
