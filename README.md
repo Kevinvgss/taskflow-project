@@ -74,13 +74,13 @@ Permite:
 
 ## 🌙 Modo oscuro
 
-La aplicación incluye **modo oscuro utilizando Tailwind CSS.
+La aplicación incluye modo oscuro utilizando Tailwind CSS.
 
 Características:
 
 - Botón de activación 
 - Cambio visual completo de la interfaz
-- Uso de la clase `dark` para aplicar estilos alternativos
+- Uso de la clase "dark" para aplicar estilos alternativos
 
 ---
 
