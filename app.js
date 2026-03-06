@@ -335,3 +335,45 @@ month:"long"
 
 render()
 renderReminders()
+
+/* MODO OSCURO */
+
+const darkToggle = document.getElementById("dark-toggle")
+
+/* comprobar si estaba activado */
+
+if(localStorage.getItem("darkMode") === "true"){
+
+document.documentElement.classList.add("dark")
+
+darkToggle.textContent = "☀️ Modo claro"
+darkToggle.style.background = "#1e293b"
+darkToggle.style.color = "white"
+
+}
+
+/* click del botón */
+
+darkToggle.onclick = () => {
+
+document.documentElement.classList.toggle("dark")
+
+const isDark = document.documentElement.classList.contains("dark")
+
+if(isDark){
+
+darkToggle.textContent = "☀️ Modo claro"
+darkToggle.style.background = "#1e293b"
+darkToggle.style.color = "white"
+
+}else{
+
+darkToggle.textContent = "🌙 Modo oscuro"
+darkToggle.style.background = ""
+darkToggle.style.color = ""
+
+}
+
+localStorage.setItem("darkMode", isDark)
+
+}

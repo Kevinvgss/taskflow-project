@@ -461,3 +461,93 @@ color:#6b7280;
 font-size:15px;
 display:none;
 }
+
+/* DARK MODE */
+
+.dark body{
+background:#0f172a;
+}
+
+.dark header{
+background:linear-gradient(90deg,#1e3a8a,#1e40af);
+}
+
+.dark .sidebar,
+.dark .main,
+.dark .right-panel{
+background:#1e293b;
+color:white;
+}
+
+.dark .stat{
+background:#334155;
+color:white;
+}
+
+.dark .menu{
+background:#334155;
+color:white;
+}
+
+.dark .menu:hover{
+background:#2563eb;
+}
+
+.dark .task{
+background:#1e293b;
+color:white;
+}
+
+.dark .tag{
+background:#334155;
+color:white;
+}
+
+.dark input,
+.dark select,
+.dark textarea{
+background:#1e293b;
+color:white;
+border:1px solid #475569;
+}
+
+.dark #calendar div{
+background:#334155;
+color:white;
+}
+
+.dark .reminder{
+background:#334155;
+color:white;
+}
+
+button{
+transition:0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+outline:none;
+border-color:#2563eb;
+box-shadow:0 0 0 2px rgba(37,99,235,0.2);
+}
+
+/* TITULOS DE SECCION */
+
+.section-title{
+font-size:15px;
+font-weight:600;
+letter-spacing:0.5px;
+margin-bottom:12px;
+padding-bottom:6px;
+border-bottom:2px solid #e5e7eb;
+color:#374151;
+}
+
+/* MODO OSCURO */
+
+.dark .section-title{
+border-bottom:2px solid #475569;
+color:#e2e8f0;
+}

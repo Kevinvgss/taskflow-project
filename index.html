@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <title>TaskNova Planner</title>
 
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+darkMode: 'class'
+}
+</script>
+
 <link rel="stylesheet" href="style.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -18,7 +26,16 @@
 
 <div class="logo">🚀 TaskNova Planner</div>
 
+<div class="flex items-center gap-4">
+
 <div id="today-date"></div>
+
+<button id="dark-toggle"
+class="px-4 py-1 rounded-full bg-white/20 hover:bg-white/30 transition text-sm">
+🌙 Modo oscuro
+</button>
+
+</div>
 
 </header>
 
@@ -30,7 +47,7 @@
 
 <aside class="sidebar">
 
-<h3>Panel</h3>
+<h3 class="section-title">Panel</h3>
 
 <button class="menu active" data-filter="all">📋 Todas</button>
 <button class="menu" data-filter="personal">👤 Personal</button>
@@ -41,7 +58,7 @@
 
 <div class="calendar-card">
 
-<h4>Calendario</h4>
+<h4 class="section-title">Calendario</h4>
 
 <div id="calendar-header"></div>
 
@@ -146,7 +163,7 @@
 
 
 
-<h2>Mis tareas</h2>
+<h2 class="section-title">Mis tareas</h2>
 
 <div id="task-list"></div>
 
@@ -160,7 +177,7 @@
 
 <aside class="right-panel">
 
-<h3>Recordatorios</h3>
+<h3 class="section-title">Recordatorios</h3>
 
 <div class="reminder-creator">
 
