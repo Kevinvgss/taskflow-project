@@ -1,21 +1,99 @@
-# TaskNova Planner
+# 🚀 TaskNova Planner
 
-Aplicación web para gestionar y planificar tus tareas diarias y recordatorios.
+TaskNova Planner es una aplicación web de gestión de tareas desarrollada con **HTML, CSS, JavaScript y Tailwind CSS**, diseñada para organizar actividades diarias de forma visual, sencilla y eficiente.
 
-Funciones:
-- Crear tareas de tu día a día
-- Editar tareas una vez creadas
-- Eliminar tareas
-- Prioridades, ya sean altas, medias o bajas
-- Categorías para organizarte mejor
-- Recordatorios 
+La aplicación permite crear, editar, eliminar y clasificar tareas por categorías, además de gestionar recordatorios y visualizar el progreso diario.
+
+---
+
+
+Aplicación desplegada en Vercel:
+
+https://taskflow-project-iota.vercel.app/
+
+---
+
+## 📸 Interfaz de la aplicación
+
+La interfaz está organizada en tres paneles principales:
+
+### Panel lateral
+Incluye:
+
+- Filtros por categoría
+- Calendario
+- Botón para eliminar todas las tareas
+
+Categorías disponibles:
+
+- 📋 Todas
+- 👤 Personal
+- 💼 Trabajo
+- 🏠 Hogar
+- 💪 Salud
+
+---
+
+### Panel central
+Área principal de gestión de tareas.
+
+Incluye:
+
+- Estadísticas de tareas
+- Barra de progreso
+- Creación de nuevas tareas
 - Buscador de tareas
-- Calendario a la vista
-- Barra de progreso con porcentaje real 
+- Lista de tareas 
 
-Tecnologías utilizadas:
-- HTML
-- CSS
-- JavaScript
+Cada tarea permite:
+
+- Marcar como completada
+- Editar
+- Eliminar
+- Añadir notas
+- Seleccionar prioridad
+- Asignar una hora
+
+Las prioridades se diferencian por color:
+
+- 🔴 Alta prioridad
+- 🟠 Media prioridad
+- 🟢 Baja prioridad
+
+---
+
+### Panel derecho
+Gestión de recordatorios rápidos.
+
+Permite:
+
+- Crear recordatorios
+- Eliminarlos fácilmente
+
+---
+
+## 🌙 Modo oscuro
+
+La aplicación incluye **modo oscuro utilizando Tailwind CSS.
+
+Características:
+
+- Botón de activación 
+- Cambio visual completo de la interfaz
+- Uso de la clase `dark` para aplicar estilos alternativos
+
+---
+
+## ⚙️ Tecnologías utilizadas
+
+- HTML5
+- CSS3
+- JavaScript 
+- Tailwind CSS (parcialmente)
 - LocalStorage
+- Vercel 
+
+---
+
+
 
