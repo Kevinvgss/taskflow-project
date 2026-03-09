@@ -489,6 +489,11 @@ background:#334155;
 color:white;
 }
 
+.dark .menu.active{
+background:#2563eb;
+color:white;
+}
+
 .dark .menu:hover{
 background:#2563eb;
 }
