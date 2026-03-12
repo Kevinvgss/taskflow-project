@@ -13,6 +13,7 @@ const notes=document.getElementById("task-notes")
 
 const search=document.getElementById("search-task")
 
+// Handle creation of a new task from the form inputs
 document.getElementById("add-task").onclick=()=>{
 
 if(!input.value.trim()) return
@@ -36,6 +37,7 @@ render()
 
 }
 
+// Render the visible task list according to current filters and search
 function render(){
 
 list.innerHTML=""
@@ -105,15 +107,17 @@ emptyMessage.style.display = "none"
 
 }
 
-function toggle(i){
+// Toggle completed / not completed state for a task by index
+function toggle(index) {
+  const task = tasks[index];
+  task.completed = !task.completed;
 
-tasks[i].completed=!tasks[i].completed
-
-save()
-render()
-
+  save();
+  render();
 }
 
+
+// Remove a task with a small animation before updating the list
 function deleteTask(i){
 
 const taskElements = document.querySelectorAll(".task")
@@ -132,6 +136,7 @@ render()
 
 }
 
+// Allow inline text editing for a task using a simple prompt
 function editTask(i){
 
 const t=prompt("Editar tarea",tasks[i].text)
@@ -144,6 +149,7 @@ render()
 
 }
 
+// Update totals, completed/pending counts and progress bar percentage
 function updateStats(){
 
 const total=tasks.length
@@ -164,6 +170,7 @@ document.getElementById("progress-text").textContent=percent+"%"
 
 }
 
+// Category filter buttons (All, Personal, Trabajo, etc.)
 document.querySelectorAll(".menu").forEach(btn=>{
 
 btn.onclick=()=>{
@@ -181,8 +188,10 @@ render()
 
 })
 
+// Live search: re-render tasks whenever the user types
 search.oninput=render
 
+// Clear all tasks after user confirmation
 document.getElementById("clear-all").onclick=()=>{
 
 if(confirm("¿Eliminar todas las tareas?")){
@@ -197,6 +206,7 @@ render()
 
 /* RECORDATORIOS */
 
+// Create a new reminder and persist it
 document.getElementById("add-reminder").onclick=()=>{
 
 const input=document.getElementById("reminder-input")
@@ -212,6 +222,7 @@ renderReminders()
 
 }
 
+// Render the list of reminders on the right panel
 function renderReminders(){
 
 const container=document.getElementById("reminder-list")
@@ -238,6 +249,7 @@ container.appendChild(div)
 
 }
 
+// Animate and remove a single reminder by index
 function removeReminder(i){
 
 const reminderElements = document.querySelectorAll(".reminder")
@@ -256,6 +268,7 @@ renderReminders()
 
 }
 
+// Persist current tasks and reminders to localStorage
 function save(){
 
 localStorage.setItem("tasks",JSON.stringify(tasks))
@@ -265,6 +278,7 @@ localStorage.setItem("reminders",JSON.stringify(reminders))
 
 /* CALENDARIO */
 
+// Build the mini calendar for the current month and highlight today's date
 const calendar = document.getElementById("calendar")
 const header = document.getElementById("calendar-header")
 
@@ -323,7 +337,7 @@ calendar.appendChild(day)
 
 }
 
-/* FECHA HEADER */
+/* FECHA HEADER: human‑readable full date in Spanish */
 
 document.getElementById("today-date").textContent=
 
@@ -333,6 +347,7 @@ day:"numeric",
 month:"long"
 })
 
+// Initial paint of tasks and reminders when the app loads
 render()
 renderReminders()
 
@@ -340,7 +355,7 @@ renderReminders()
 
 const darkToggle = document.getElementById("dark-toggle")
 
-/* comprobar si estaba activado */
+/* comprobar si estaba activado: restore previous dark mode choice */
 
 if(localStorage.getItem("darkMode") === "true"){
 
@@ -352,7 +367,7 @@ darkToggle.style.color = "white"
 
 }
 
-/* click del botón */
+/* click del botón: toggle theme and remember user preference */
 
 darkToggle.onclick = () => {
 
@@ -377,3 +392,4 @@ darkToggle.style.color = ""
 localStorage.setItem("darkMode", isDark)
 
 }
+
