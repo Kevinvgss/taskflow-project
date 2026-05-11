@@ -108,8 +108,18 @@ emptyMessage.style.display = "none"
 }
 
 // Toggle completed / not completed state for a task by index
+/**
+ * Toggles the completed status of a task at the given index.
+ *
+ * @param {number} index - The index of the task to update in the tasks array.
+ */
 function toggle(index) {
   const task = tasks[index];
+  if (!task) {
+    console.warn(`Task at index ${index} does not exist.`);
+    return;
+  }
+
   task.completed = !task.completed;
 
   save();
