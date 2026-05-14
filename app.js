@@ -128,22 +128,34 @@ function toggle(index) {
 
 
 // Remove a task with a small animation before updating the list
-function deleteTask(i){
+/**
+ * Deletes a task at the given index with a removal animation,
+ * then updates storage and re-renders the task list.
+ *
+ * @param {number} i - The index of the task to delete from the tasks array.
+ */
+function deleteTask(i) {
+  // Validate the index and presence of expected DOM elements and task
+  const taskElements = document.querySelectorAll(".task");
+  if (
+    typeof i !== "number" ||
+    i < 0 ||
+    i >= taskElements.length ||
+    i >= tasks.length ||
+    !taskElements[i]
+  ) {
+    console.warn(`Invalid task index: ${i}. No task deleted.`);
+    return;
+  }
 
-const taskElements = document.querySelectorAll(".task")
-const el = taskElements[i]
+  const el = taskElements[i];
+  el.classList.add("removing");
 
-el.classList.add("removing")
-
-setTimeout(()=>{
-
-tasks.splice(i,1)
-
-save()
-render()
-
-},250)
-
+  setTimeout(() => {
+    tasks.splice(i, 1);
+    save();
+    render();
+  }, 250);
 }
 
 // Allow inline text editing for a task using a simple prompt
