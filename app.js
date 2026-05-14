@@ -182,24 +182,29 @@ function editTask(i) {
 }
 
 // Update totals, completed/pending counts and progress bar percentage
-function updateStats(){
+/**
+ * Updates the statistics display, including total, completed, pending task counts,
+ * and progress bar reflecting completion percentage.
+ */
+function updateStats() {
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(task => task.completed).length;
+  const pendingTasks = totalTasks - completedTasks;
 
-const total=tasks.length
-const completed=tasks.filter(t=>t.completed).length
+  // Update task counts in DOM
+  document.getElementById("total-count").textContent = totalTasks;
+  document.getElementById("completed-count").textContent = completedTasks;
+  document.getElementById("pending-count").textContent = pendingTasks;
 
-document.getElementById("total-count").textContent=total
-document.getElementById("completed-count").textContent=completed
-document.getElementById("pending-count").textContent=total-completed
+  // Calculate completion percentage
+  let percentComplete = 0;
+  if (totalTasks > 0) {
+    percentComplete = Math.round((completedTasks / totalTasks) * 100);
+  }
 
-let percent=0
-
-if(total>0){
-percent=Math.round((completed/total)*100)
-}
-
-document.getElementById("progress-fill").style.width=percent+"%"
-document.getElementById("progress-text").textContent=percent+"%"
-
+  // Update progress bar and percentage text
+  document.getElementById("progress-fill").style.width = percentComplete + "%";
+  document.getElementById("progress-text").textContent = percentComplete + "%";
 }
 
 // Category filter buttons (All, Personal, Trabajo, etc.)
