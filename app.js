@@ -306,11 +306,17 @@ renderReminders()
 }
 
 // Persist current tasks and reminders to localStorage
-function save(){
+/**
+ * Saves the current tasks and reminders arrays to localStorage.
+ * Tasks are stored under the key "tasks".
+ * Reminders are stored under the key "reminders".
+ */
+function save() {
+  const tasksJSON = JSON.stringify(tasks);
+  const remindersJSON = JSON.stringify(reminders);
 
-localStorage.setItem("tasks",JSON.stringify(tasks))
-localStorage.setItem("reminders",JSON.stringify(reminders))
-
+  localStorage.setItem("tasks", tasksJSON);
+  localStorage.setItem("reminders", remindersJSON);
 }
 
 /* CALENDARIO */
