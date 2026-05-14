@@ -159,16 +159,26 @@ function deleteTask(i) {
 }
 
 // Allow inline text editing for a task using a simple prompt
-function editTask(i){
+/**
+ * Edits the text of a task at the given index using a browser prompt.
+ * If the user provides new text, updates the task, saves, and re-renders the list.
+ *
+ * @param {number} i - The index of the task to edit in the tasks array.
+ */
+function editTask(i) {
+  if (typeof i !== "number" || i < 0 || i >= tasks.length) {
+    console.warn(`Invalid task index: ${i}. Cannot edit task.`);
+    return;
+  }
 
-const t=prompt("Editar tarea",tasks[i].text)
+  const currentText = tasks[i].text;
+  const updatedText = prompt("Editar tarea", currentText);
 
-if(t){
-tasks[i].text=t
-save()
-render()
-}
-
+  if (updatedText) {
+    tasks[i].text = updatedText;
+    save();
+    render();
+  }
 }
 
 // Update totals, completed/pending counts and progress bar percentage
