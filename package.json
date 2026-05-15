@@ -1,0 +1,24 @@
+{
+  "name": "taskflow-project",
+  "version": "1.0.0",
+  "description": "<<<<<<< HEAD # 🚀 TaskNova Planner",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kevinvgss/taskflow-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kevinvgss/taskflow-project/issues"
+  },
+  "homepage": "https://github.com/Kevinvgss/taskflow-project#readme"
+}
