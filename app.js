@@ -1,4 +1,4 @@
-let tasks = JSON.parse(localStorage.getItem("tasks")) || []
+let tasks = []
 let reminders = JSON.parse(localStorage.getItem("reminders")) || []
 
 let filter="all"
@@ -312,10 +312,9 @@ renderReminders()
  * Reminders are stored under the key "reminders".
  */
 function save() {
-  const tasksJSON = JSON.stringify(tasks);
+  
   const remindersJSON = JSON.stringify(reminders);
 
-  localStorage.setItem("tasks", tasksJSON);
   localStorage.setItem("reminders", remindersJSON);
 }
 
@@ -391,7 +390,27 @@ month:"long"
 })
 
 // Initial paint of tasks and reminders when the app loads
-render()
+
+async function cargarTareas(){
+
+  try{
+ 
+   tasks = await window.taskApi.obtenerTareas()
+ 
+   render()
+ 
+  }catch(error){
+ 
+   console.error(error)
+ 
+   alert("Error cargando tareas")
+ 
+  }
+ 
+ }
+
+ cargarTareas()
+
 renderReminders()
 
 /* MODO OSCURO */
