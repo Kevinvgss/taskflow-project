@@ -55,3 +55,15 @@ La IA explicó cómo las tareas se guardan usando localStorage y JSON.stringify(
 # Conclusión
 
 El uso de MCP facilitó el análisis del proyecto y ayudó a entender mejor la estructura del código sin necesidad de revisar manualmente todos los archivos.
+
+## Pruebas de integración backend
+
+Se realizaron pruebas de integración utilizando fetch desde la consola del navegador.
+
+Pruebas realizadas:
+- GET de tareas
+- POST correcto
+- POST con error 400
+- DELETE con error 404
+
+El backend respondió correctamente en todos los casos.
