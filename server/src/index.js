@@ -18,6 +18,22 @@ app.get('/', (req, res) => {
  })
 })
 
+app.use((err, req, res, next) => {
+
+    if(err.message === 'NOT_FOUND'){
+     return res.status(404).json({
+      message:'Tarea no encontrada'
+     })
+    }
+   
+    console.error(err)
+   
+    return res.status(500).json({
+     message:'Error interno del servidor'
+    })
+   
+   })
+   
 app.listen(PORT, () => {
  console.log(`Servidor ejecutándose en puerto ${PORT}`)
 })
